@@ -3,7 +3,7 @@
 
 pkgname=compiler-rt
 pkgver=16.0.6
-pkgrel=2
+pkgrel=3
 pkgdesc="Compiler runtime libraries for clang"
 arch=('x86_64')
 url="https://compiler-rt.llvm.org/"
@@ -16,7 +16,7 @@ options=('staticlibs')
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/compiler-rt-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
-        https://github.com/llvm/llvm-project/commit/fb77ca05ffb4f8e666878f2f6718a9fb4d686839.patch)
+        $pkgname-move-allocator-base.patch::https://github.com/llvm/llvm-project/commit/fb77ca05ffb4.patch)
 sha256sums=('7911a2a9cca10393a17f637c01a6f5555b0a38f64ff47dc9168413a4190bc2db'
             'SKIP'
             '39d342a4161095d2f28fb1253e4585978ac50521117da666e2b1f6f28b62f514'
@@ -30,8 +30,8 @@ prepare() {
   cd compiler-rt-$pkgver.src
   mkdir build
 
-  #ASan: move allocator base to avoid conflict with high-entropy ASLR for x86-64 Linux'
-  patch -Np2 -i ../fb77ca05ffb4f8e666878f2f6718a9fb4d686839.patch
+  # ASan: move allocator base to avoid conflict with high-entropy ASLR for x86-64 Linux
+  patch -Np2 -i ../$pkgname-move-allocator-base.patch
 }
 
 build() {
