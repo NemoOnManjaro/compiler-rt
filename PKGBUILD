@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="Compiler runtime libraries for clang"
 arch=('x86_64')
 url="https://compiler-rt.llvm.org/"
-license=('custom:Apache 2.0 with LLVM Exception')
+license=('Apache-2.0 WITH LLVM-exception')
 depends=('gcc-libs')
 makedepends=('llvm' 'cmake' 'ninja' 'python')
 # Build 32-bit compiler-rt libraries on x86_64 (FS#41911)
